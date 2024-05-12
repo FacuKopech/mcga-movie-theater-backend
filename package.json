@@ -1,0 +1,22 @@
+{
+  "name": "mcga-movie-theater-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FacuKopech/mcga-movie-theater-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FacuKopech/mcga-movie-theater-backend/issues"
+  },
+  "homepage": "https://github.com/FacuKopech/mcga-movie-theater-backend#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
