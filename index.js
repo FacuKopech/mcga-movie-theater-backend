@@ -1,7 +1,10 @@
 const express = require("express");
 const app = express();
-app.listen(5173,() => console.log("Server listening at port 5173"));
+const loadEnvironment = require("./loadEnvironment.js");
+const posts = require('./routes/posts.js')
 
-app.get("/", (req, res) => {
-    res.send("Hello World");
-});
+const port = process.env.PORT; 
+
+app.listen(port, () => console.log(`Server listening at port ${port}`));
+app.use(posts);
+
