@@ -4,7 +4,7 @@ const env = require("dotenv");
 const { createSecretToken } = require("../tokenGeneration/generateToken");
 env.config();
 
-const login = async (req, res) => {
+const loginController = async (req, res) => {
   const { email, password } = req.body;
   if (!(email && password)) {
     return res.status(400).json({ message: "Both email & password are required" });
@@ -18,12 +18,11 @@ const login = async (req, res) => {
   res.cookie("token", token, {
     domain: process.env.FRONT_END_URL,
     path: "/", 
-    expires: new Date(Date.now() + 86400000),
+    expires: new Date(Date.now() + 3600 * 1000),
     secure: true,
-    httpOnly: true,
+    httpOnly: false,
     sameSite: "None",
   });
-
-  res.json({ token });
+  res.status(200).json({ token });
 };
-module.exports = login;
+module.exports = loginController;

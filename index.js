@@ -9,6 +9,7 @@ const port = process.env.PORT;
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use("/api", authRoute);
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", process.env.BACK_END_URL);
@@ -19,5 +20,3 @@ app.use((req, res, next) => {
   next();
 });
 app.listen(port, () => console.log(`Server listening at port ${port}`));
-app.use("/api", authRoute);
-
