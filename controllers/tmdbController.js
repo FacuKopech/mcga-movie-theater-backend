@@ -10,7 +10,7 @@ const getMovieImages = async (req, res) => {
 
   try {
     const moviesWithImages = {};
-    for (const movieTitle of movieTitles) {
+    const fetchImagePromises = movieTitles.map(async (movieTitle) => {
       const searchUrl = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(movieTitle)}&api_key=${process.env.TMDB_API_KEY}`;
       const searchResponse = await fetch(searchUrl);
       const searchData = await searchResponse.json();
@@ -29,7 +29,10 @@ const getMovieImages = async (req, res) => {
           moviesWithImages[movieTitle] = `https://image.tmdb.org/t/p/w500${imageData.posters[0].file_path}`;
         }
       }
-    }
+    });
+
+    await Promise.all(fetchImagePromises);
+
     res.status(200).json({ moviesWithImages });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong", error });
