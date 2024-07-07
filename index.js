@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const loadEnvironment = require("./loadEnvironment.js");
 const authRoute = require('./routes/route.js');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
