@@ -1,16 +1,23 @@
+const { ObjectId } = require('mongodb');
 const db = require('../db/conn');
 const env = require("dotenv");
 env.config();
 
-const addMovie = async (req, res) => {  
+const addMovie = async (req, res) => {
   const { titulo, descripcion, estrellas, duracion, genero } = req.body;
-  
+
   if (!(titulo || descripcion || estrellas || duracion || genero)) {
     return res.status(400).json({ message: "All fields are required" });
   }
-  
+
   const moviesCollection = db.collection("movies");
   const newMovie = { titulo, descripcion, estrellas, duracion, genero };
+  const existingMovie = await moviesCollection.findOne({ titulo });
+
+  if (existingMovie) {
+    return res.status(400).json({ message: "Movie already exists" });
+  }
+
   await moviesCollection.insertOne(newMovie);
   res.status(201).json({ message: "Movie added successfully" });
 };
@@ -23,13 +30,41 @@ const deleteMovie = async (req, res) => {
   }
 
   const moviesCollection = db.collection("movies");
-  const result = await moviesCollection.deleteOne({ _id: new db.ObjectID(movieId) });
-  
+  const result = await moviesCollection.deleteOne({ _id: new ObjectId(movieId) });
+
   if (result.deletedCount === 0) {
     return res.status(404).json({ message: "Movie not found" });
   }
 
   res.status(200).json({ message: "Movie deleted successfully" });
+};
+
+const updateMovie = async (req, res) => {
+  const { movieId, titulo, descripcion, estrellas, duracion, genero } = req.body;
+
+  if (!(titulo || descripcion || estrellas || duracion || genero)) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  const moviesCollection = db.collection("movies");
+  const result = await moviesCollection.updateOne(
+    { _id: new ObjectId(movieId) },
+    {
+      $set: {
+        titulo: titulo,
+        descripcion: descripcion,
+        estrellas: estrellas,
+        duracion: duracion,
+        genero: genero
+      }
+    }
+  );
+
+  if (result.modifiedCount === 0) {
+    return res.status(404).json({ message: "Movie not found" });
+  }
+
+  res.status(200).json({ message: "Movie modified successfully" });
 };
 
 const getMovieGenres = async (req, res) => {
@@ -61,5 +96,5 @@ const getMovieGenres = async (req, res) => {
   }
 };
 
-module.exports = { addMovie, deleteMovie, getMovieGenres };
+module.exports = { addMovie, deleteMovie, updateMovie, getMovieGenres };
 
