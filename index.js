@@ -1,18 +1,18 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
 const authRoute = require('./routes/route.js');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
-app.use(cors({
-  origin: 'https://movie-theater-beta.vercel.app',
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true
-}));
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', process.env.FRONT_END_URL);
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next();
+});
 
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
