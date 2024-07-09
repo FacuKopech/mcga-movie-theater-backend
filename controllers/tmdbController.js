@@ -1,6 +1,4 @@
 const fetch = require('node-fetch');
-const env = require("dotenv");
-env.config();
 
 const getMovieImages = async (req, res) => {
   const { movieTitles } = req.body;

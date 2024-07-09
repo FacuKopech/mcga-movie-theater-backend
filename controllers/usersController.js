@@ -1,8 +1,6 @@
 const db = require('../db/conn');
 const bcrypt = require("bcrypt");
-const env = require("dotenv");
 const { createSecretToken } = require("../tokenGeneration/generateToken");
-env.config();
 
 const login = async (req, res) => {
   const { email, password } = req.body;
