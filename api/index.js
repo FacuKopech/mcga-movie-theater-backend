@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const authRoute = require('./routes/route.js');
+const authRoute = require('../routes/route.js');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
@@ -20,3 +20,5 @@ app.use(cookieParser());
 app.use("/api", authRoute);
 
 app.listen(port, () => console.log(`Server listening at port ${port}`));
+
+module.exports = app;
