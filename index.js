@@ -6,9 +6,9 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const port = process.env.PORT;
-console.log('FRONT_END_URL', process.env.FRONT_END_URL);
+
 app.use(cors({
-  origin: process.env.FRONT_END_URL,
+  origin: 'https://movie-theater-beta.vercel.app',
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
