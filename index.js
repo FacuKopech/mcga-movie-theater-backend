@@ -4,6 +4,8 @@ const cors = require("cors");
 const authRoute = require('./routes/route.js');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const env = require("dotenv");
+env.config();
 
 const port = process.env.PORT;
 app.use(cors({
