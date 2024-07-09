@@ -14,7 +14,7 @@ const login = async (req, res) => {
   }
   const token = createSecretToken(user._id, user.name, user.username, user.email);
   res.cookie("token", token, {
-    domain: process.env.FRONT_END_URL,
+    domain: ".vercel.app",
     path: "/",
     expires: new Date(Date.now() + 3600 * 1000),
     secure: true,

@@ -10,7 +10,7 @@ router.post("/login", login);
 router.post("/register", register);
 router.get("/logout", (req, res) => {
   res.clearCookie("token", {
-    domain: process.env.FRONT_END_URL,
+    domain: ".vercel.app",
     path: "/",
     secure: true,
     httpOnly: true,
