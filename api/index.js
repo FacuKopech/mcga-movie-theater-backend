@@ -1,19 +1,13 @@
 const express = require("express");
 const app = express();
-const authRoute = require('../routes/route.js');
+const authRoute = require('./routes/route.js');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const port = process.env.PORT || 3000;
-const allowedOrigins = [
-  process.env.FRONT_END_URL,
-  process.env.FRONTEND_URL
-];
+
 app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-  }
+  res.header('Access-Control-Allow-Origin', process.env.FRONT_END_URL);
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.header('Access-Control-Allow-Credentials', 'true');
