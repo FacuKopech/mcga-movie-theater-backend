@@ -21,5 +21,5 @@ router.get("/get-genres", getMovieGenres);
 router.post("/add-movie", authenticateUser, addMovie);
 router.delete("/delete-movie",authenticateUser, deleteMovie);
 router.put("/update-movie",authenticateUser, updateMovie);
-router.post("/get-movie-posters", getMovieImages);
+router.get("/get-movie-posters", getMovieImages);
 module.exports = router;

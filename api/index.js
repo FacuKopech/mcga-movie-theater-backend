@@ -19,6 +19,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use("/api", authRoute);
 
+app.get('/', (req, res) => {
+  res.send('Backend is running.');
+});
+
 app.listen(port, () => console.log(`Server listening at port ${port}`));
 
 module.exports = app;
