@@ -1,6 +1,7 @@
 const db = require('../db/conn');
 const bcrypt = require("bcrypt");
 const { createSecretToken } = require("../tokenGeneration/generateToken");
+const jwtDecode = require("jwt-decode");
 
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -31,7 +32,7 @@ const register = async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, 10);
   const usersCollection = db.collection("user");
   const existingUser = await usersCollection.findOne({ email });
-  
+
   if (existingUser) {
     return res.status(400).json({ message: "Email already exists" });
   }
@@ -51,4 +52,21 @@ const register = async (req, res) => {
   res.status(200).json({ message: 'User registered successfully' });
 };
 
-module.exports = { login, register };
+const checkAuth = async (req, res) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json({ message: "Access Denied" });
+  }
+
+  try {
+    const decodedToken = jwtDecode.jwtDecode(token);
+    const { name } = decodedToken;
+
+    res.status(200).json({ message: "Authenticated", name });
+  } catch (err) {
+    res.status(401).json({ message: "Invalid token" });
+  }
+}
+
+module.exports = { login, register, checkAuth };
