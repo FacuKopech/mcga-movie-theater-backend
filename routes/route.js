@@ -12,7 +12,7 @@ router.get("/logout", (req, res) => {
   res.clearCookie("token", {
     path: "/",
     secure: true,
-    httpOnly: true,
+    httpOnly: false,
     sameSite: "None",
   });
   res.json({ message: "Logged out" });
