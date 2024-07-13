@@ -9,7 +9,7 @@ const router = express.Router();
 router.post("/login", login);
 router.post("/register", register);
 router.get("/logout", (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("token", {path: "/"});
   res.json({ message: "Logged out" });
 });
 router.get("/get-genres", getMovieGenres);
