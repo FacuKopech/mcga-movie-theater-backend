@@ -22,8 +22,5 @@ router.post("/add-movie", authenticateUser, addMovie);
 router.delete("/delete-movie", authenticateUser, deleteMovie);
 router.put("/update-movie", authenticateUser, updateMovie);
 router.post("/get-movie-posters", getMovieImages);
-router.get("/check-auth", authenticateUser, (req, res) => {
-  res.status(200).json({ message: "Authenticated" });
-});
 
 module.exports = router;
