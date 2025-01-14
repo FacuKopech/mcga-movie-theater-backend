@@ -1,4 +1,6 @@
 const { MongoClient } = require('mongodb');
+require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
+
 const connectionString = process.env.ATLAS_URI || "";
 const client = new MongoClient(connectionString);
 
